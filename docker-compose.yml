@@ -1,0 +1,24 @@
+version: "3"
+services:
+  db:
+    image: mariadb:10.4
+    volumes:
+      - ./db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass0000
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress_admin
+      MYSQL_PASSWORD: wpass0000
+    restart: always
+  wordpress:
+    image: wordpress:5
+    volumes:
+      - ./wp-data:/var/www/html
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress_admin
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wpass0000
+    restart: always
